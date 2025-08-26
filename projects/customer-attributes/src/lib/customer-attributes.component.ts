@@ -1,13 +1,12 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { CustomerAttributesService } from './customer-attributes.service';
 
-interface Customer {
-  id: number;
+interface Channel {
+  id: string;
   name: string;
-  email: string;
-  status: string;
-  joinDate: Date;
-  lastPurchase: number;
+  channelLogo: string;
+  mediaRoutingDomain: string | null;
+  isInteractive: boolean;
 }
 
 @Component({
@@ -20,37 +19,9 @@ export class CustomerAttributesComponent implements OnInit {
   @Input() customData: any;
   @Output() dataToHost = new EventEmitter<any>();
 
-  ccmChannels: any[] = [];
+  ccmChannels: Channel[] = [];
 
-  @Input() customers: Customer[] = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@example.com',
-      status: 'Active',
-      joinDate: new Date('2023-01-15'),
-      lastPurchase: 299.99
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      status: 'Inactive',
-      joinDate: new Date('2023-02-20'),
-      lastPurchase: 199.50
-    },
-    {
-      id: 3,
-      name: 'Mike Johnson',
-      email: 'mike@example.com',
-      status: 'Active',
-      joinDate: new Date('2023-03-10'),
-      lastPurchase: 450.00
-    }
-  ];
-
-  @Output() customerSelected = new EventEmitter<Customer>();
-  @Output() customersChanged = new EventEmitter<Customer[]>();
+  @Output() channelSelected = new EventEmitter<Channel>();
 
   constructor(private customerAttributesService: CustomerAttributesService) { }
 
@@ -90,27 +61,17 @@ export class CustomerAttributesComponent implements OnInit {
 
   // Method to send data to host
   sendDataToHost(data: any): void {
-    console.log('Sending data to host:', data);
     this.dataToHost.emit(data);
   }
 
-  onCustomerSelect(customer: Customer): void {
-    this.customerSelected.emit(customer);
+  onChannelSelect(channel: Channel): void {
+    this.channelSelected.emit(channel);
     // Also send additional data about the selection
     this.sendDataToHost({
-      event: 'customerSelected',
+      event: 'channelSelected',
       timestamp: new Date(),
-      selectedCustomer: customer,
-      totalCustomers: this.customers.length
+      selectedChannel: channel,
+      totalChannels: this.ccmChannels.length
     });
-  }
-
-  updateCustomers(newCustomers: Customer[]): void {
-    this.customers = [...newCustomers];
-    this.customersChanged.emit(this.customers);
-  }
-
-  getStatusClass(status: string): string {
-    return status.toLowerCase() === 'active' ? 'status-active' : 'status-inactive';
   }
 }

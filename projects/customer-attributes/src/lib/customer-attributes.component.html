@@ -1,29 +1,29 @@
-<div class="customer-table-container">
-  <table class="customer-table">
+<div class="channels-container">
+  <table class="channels-table">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Join Date</th>
-        <th>Last Purchase</th>
+        <th>Channel</th>
+        <th>Logo</th>
+        <th>Media Routing Domain</th>
+        <th>Interactive</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let customer of customers" 
-          (click)="onCustomerSelect(customer)" 
+      <tr *ngFor="let channel of ccmChannels" 
+          (click)="onChannelSelect(channel)" 
           style="cursor: pointer;">
-        <td class="customer-id">#{{customer.id}}</td>
-        <td class="customer-name">{{customer.name}}</td>
-        <td class="customer-email">{{customer.email}}</td>
-        <td>
-          <span class="status-badge" [ngClass]="getStatusClass(customer.status)">
-            {{customer.status}}
+        <td class="channel-id">{{channel.id}}</td>
+        <td class="channel-name">{{channel.name}}</td>
+        <td class="channel-logo">
+          <img [src]="channel.channelLogo" [alt]="channel.name + ' logo'" *ngIf="channel.channelLogo"/>
+        </td>
+        <td class="channel-domain">{{channel.mediaRoutingDomain || 'N/A'}}</td>
+        <td class="channel-interactive">
+          <span class="interactive-badge" [class.is-interactive]="channel.isInteractive">
+            {{channel.isInteractive ? 'Yes' : 'No'}}
           </span>
         </td>
-        <td class="customer-date">{{customer.joinDate | date:'mediumDate'}}</td>
-        <td class="customer-amount">${{customer.lastPurchase.toFixed(2)}}</td>
       </tr>
     </tbody>
   </table>

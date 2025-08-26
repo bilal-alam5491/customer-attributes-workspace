@@ -1,11 +1,11 @@
-.customer-table-container {
+.channels-container {
   padding: 20px;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.customer-table {
+.channels-table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
@@ -35,18 +35,43 @@
   }
 }
 
-.customer-id {
+.channel-id {
   color: #6c757d;
-  font-weight: 500;
+  font-family: monospace;
+  font-size: 0.9em;
 }
 
-.customer-name {
+.channel-name {
   font-weight: 500;
   color: #2c3e50;
 }
 
-.customer-email {
-  color: #3498db;
+.channel-logo {
+  img {
+    height: 24px;
+    width: auto;
+    vertical-align: middle;
+  }
+}
+
+.channel-domain {
+  font-family: monospace;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.interactive-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  background-color: #f0f0f0;
+  color: #666;
+
+  &.is-interactive {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
 }
 
 .customer-date {
