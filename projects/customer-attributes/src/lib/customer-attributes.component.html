@@ -11,7 +11,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let customer of customers">
+      <tr *ngFor="let customer of customers" 
+          (click)="onCustomerSelect(customer)" 
+          style="cursor: pointer;">
         <td class="customer-id">#{{customer.id}}</td>
         <td class="customer-name">{{customer.name}}</td>
         <td class="customer-email">{{customer.email}}</td>
